@@ -2,8 +2,8 @@ import "./App.css";
 import { NavLink, Route, Routes } from "react-router-dom";
 import ShopItems from "./components/ShopItems";
 import HomePage from "./components/HomePage";
-import { useEffect, useState } from "react";
-import { FaTimes } from "react-icons/fa";
+import { useState } from "react";
+import Cart from "./components/Cart";
 
 function App() {
   const [numOfItemsInCart, setNumOfItemsInCart] = useState(0);
@@ -12,43 +12,13 @@ function App() {
   const addToCart = (item) => {
     const cartClone = [...cart];
     const getItem = cartClone.find((elem) => elem.id === item.id);
+    setNumOfItemsInCart((curr) => curr + 1);
     if (getItem) {
       getItem.quantity += 1;
       setCart([...cartClone]);
       return;
     }
-    setNumOfItemsInCart((curr) => curr + 1);
     setCart([...cart, item]);
-  };
-
-  const total = () => {
-    const mySum = cart.reduce((sum, { price, quantity }) => {
-      return sum + price * quantity;
-    }, 0);
-    return mySum;
-  };
-
-  const changeQuantity = (id, operator) => {
-    const cartClone = [...cart];
-    const item = cartClone.find((elem) => elem.id === id);
-    switch (operator) {
-      case "+":
-        item.quantity += 1;
-        break;
-      case "-":
-        item.quantity -= 1;
-        break;
-      default:
-        console.error("Invalid operator");
-    }
-    setCart(cartClone);
-  };
-
-  const removeItem = (id) => {
-    const cartClone = [...cart];
-    const filteredCart = cartClone.filter((item) => item.id !== id);
-    setCart(filteredCart);
-    setNumOfItemsInCart((curr) => curr - 1);
   };
 
   const openCart = () => {
@@ -84,28 +54,14 @@ function App() {
           </li>
         </ul>
       </nav>
-      <div className="show-cart">
-        {cart.map((item, i) => {
-          return (
-            <div key={i}>
-              <h3>
-                {item.name} Quantity:{" "}
-                <button onClick={() => changeQuantity(item.id, "-")}>-</button>
-                {item.quantity === 0 ? removeItem(item.id) : item.quantity}
-                <button onClick={() => changeQuantity(item.id, "+")}>
-                  +
-                </button>{" "}
-                Price: {item.quantity * item.price}$
-              </h3>
-              <button onClick={() => removeItem(item.id)}>Remove</button>
-            </div>
-          );
-        })}
 
-        <div>
-          {numOfItemsInCart === 0 ? "Empty Cart" : "Total: " + total() + "$"}
-        </div>
-      </div>
+      <Cart
+        cart={cart}
+        setNumOfItemsInCart={setNumOfItemsInCart}
+        setCart={setCart}
+        numOfItemsInCart={numOfItemsInCart}
+      />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopItems addToCart={addToCart} />} />

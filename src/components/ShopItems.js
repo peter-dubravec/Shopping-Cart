@@ -7,7 +7,7 @@ const ShopItems = ({ addToCart }) => {
   ];
 
   return (
-    <div>
+    <div className="shop">
       {items.map((item) => (
         <div key={item.id}>
           {item.name}
