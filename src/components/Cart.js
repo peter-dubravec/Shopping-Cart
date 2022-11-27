@@ -18,12 +18,12 @@ const Cart = ({ setNumOfItemsInCart, setCart, cart, numOfItemsInCart }) => {
       setCart(cartClone);
     } else {
       item.quantity -= 1;
-      if (item.quantity > 0) {
-        setCart(cartClone);
-        setNumOfItemsInCart((curr) => curr - 1);
+      if (item.quantity <= 0) {
+        removeItem(id);
         return;
       }
-      removeItem(id);
+      setCart(cartClone);
+      setNumOfItemsInCart((curr) => curr - 1);
     }
   };
 
@@ -40,6 +40,10 @@ const Cart = ({ setNumOfItemsInCart, setCart, cart, numOfItemsInCart }) => {
     document.querySelector(".show-cart").style.width = "0px";
   };
 
+  const checkoutClick = () => {
+    alert("Thank you for visiting this website!");
+  };
+
   return (
     <div className="show-cart">
       <div className="wrapper">
@@ -47,16 +51,17 @@ const Cart = ({ setNumOfItemsInCart, setCart, cart, numOfItemsInCart }) => {
         {cart.map((item, i) => {
           return (
             <div className="container" key={i}>
+              <img src={item.img} alt={item.name}></img>
               <p className="item-name">{item.name}</p>
               <p className="item-price">Price: {item.price}$</p>
-              <div className="quantity">
+              <div className="quantity-wrapper">
                 <button
                   className="btn-quantity"
                   onClick={() => changeQuantity(item.id, "-", item.quantity)}
                 >
                   -
                 </button>
-                {item.quantity}
+                <div className="quantity">{item.quantity}</div>
                 <button
                   className="btn-quantity"
                   onClick={() => changeQuantity(item.id, "+")}
@@ -73,9 +78,21 @@ const Cart = ({ setNumOfItemsInCart, setCart, cart, numOfItemsInCart }) => {
             </div>
           );
         })}
-
+        {numOfItemsInCart !== 0 && <hr />}
         <div className="total">
-          {numOfItemsInCart === 0 ? "Empty Cart" : "Total: " + total() + "$"}
+          <p>
+            {numOfItemsInCart === 0 ? "Empty Cart" : "Total: " + total() + "$"}
+          </p>
+
+          {numOfItemsInCart === 0 ? (
+            <button onClick={closeCart} className="btn-close-cart">
+              Close Cart
+            </button>
+          ) : (
+            <button onClick={checkoutClick} className="btn-checkout">
+              Checkout
+            </button>
+          )}
         </div>
       </div>
     </div>

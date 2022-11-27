@@ -4,6 +4,8 @@ import ShopItems from "./components/ShopItems";
 import HomePage from "./components/HomePage";
 import { useState } from "react";
 import Cart from "./components/Cart";
+import Footer from "./components/Footer";
+import { FaCartArrowDown } from "react-icons/fa";
 
 function App() {
   const [numOfItemsInCart, setNumOfItemsInCart] = useState(0);
@@ -21,8 +23,11 @@ function App() {
     setCart([...cart, item]);
   };
 
-  const openCart = () => {
-    document.querySelector(".show-cart").style.width = "500px";
+  const toggleCart = () => {
+    let cart = document.querySelector(".show-cart");
+    cart.style.width === "0px"
+      ? (cart.style.width = "500px")
+      : (cart.style.width = "0px");
   };
 
   return (
@@ -49,23 +54,30 @@ function App() {
               Shop
             </NavLink>
           </li>
-          <li className="cart" onClick={openCart}>
-            Cart {numOfItemsInCart}
+          <li className="nav-cart" onClick={toggleCart}>
+            <div className="cart-icon">
+              <FaCartArrowDown />{" "}
+              <span className="number-of-items">{numOfItemsInCart}</span>
+            </div>
           </li>
         </ul>
       </nav>
 
-      <Cart
-        cart={cart}
-        setNumOfItemsInCart={setNumOfItemsInCart}
-        setCart={setCart}
-        numOfItemsInCart={numOfItemsInCart}
-      />
+      <main>
+        <Cart
+          cart={cart}
+          setNumOfItemsInCart={setNumOfItemsInCart}
+          setCart={setCart}
+          numOfItemsInCart={numOfItemsInCart}
+        />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/shop" element={<ShopItems addToCart={addToCart} />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/shop" element={<ShopItems addToCart={addToCart} />} />
+        </Routes>
+      </main>
+
+      <Footer />
     </>
   );
 }
