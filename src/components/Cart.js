@@ -50,7 +50,7 @@ const Cart = ({ setNumOfItemsInCart, setCart, cart, numOfItemsInCart }) => {
         <FaTimes className="close-btn" onClick={closeCart} />
         {cart.map((item, i) => {
           return (
-            <div className="container" key={i}>
+            <div className="container" data-testid="item-container" key={i}>
               <img src={item.img} alt={item.name}></img>
               <p className="item-name">{item.name}</p>
               <p className="item-price">Price: {item.price}$</p>

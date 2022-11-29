@@ -1,11 +1,11 @@
 import "./App.css";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import ShopItems from "./components/ShopItems";
 import HomePage from "./components/HomePage";
 import { useState } from "react";
 import Cart from "./components/Cart";
 import Footer from "./components/Footer";
-import { FaCartArrowDown } from "react-icons/fa";
+import Header from "./components/Header";
 
 function App() {
   const [numOfItemsInCart, setNumOfItemsInCart] = useState(0);
@@ -32,37 +32,7 @@ function App() {
 
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) => {
-                return isActive ? "isActive" : "";
-              }}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/shop"
-              className={({ isActive }) => {
-                return isActive ? "isActive" : "";
-              }}
-            >
-              Shop
-            </NavLink>
-          </li>
-          <li className="nav-cart" onClick={toggleCart}>
-            <div className="cart-icon">
-              <FaCartArrowDown />{" "}
-              <span className="number-of-items">{numOfItemsInCart}</span>
-            </div>
-          </li>
-        </ul>
-      </nav>
-
+      <Header toggleCart={toggleCart} numOfItemsInCart={numOfItemsInCart} />
       <main>
         <Cart
           cart={cart}
@@ -76,7 +46,6 @@ function App() {
           <Route path="/shop" element={<ShopItems addToCart={addToCart} />} />
         </Routes>
       </main>
-
       <Footer />
     </>
   );
