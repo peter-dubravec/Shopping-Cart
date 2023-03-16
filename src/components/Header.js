@@ -11,7 +11,7 @@ const Header = ({ toggleCart, numOfItemsInCart }) => {
         <ul>
           <li>
             <NavLink
-              to="/"
+              to="/Shopping-Cart/"
               className={({ isActive }) => {
                 return isActive ? "isActive" : "";
               }}

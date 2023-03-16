@@ -42,7 +42,7 @@ function App() {
         />
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/Shopping-Cart/" element={<HomePage />} />
           <Route path="/shop" element={<ShopItems addToCart={addToCart} />} />
         </Routes>
       </main>
