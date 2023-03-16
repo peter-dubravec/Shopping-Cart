@@ -21,7 +21,7 @@ main {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-nav > ul {
+nav>ul {
   display: flex;
   justify-content: space-around;
 }
@@ -138,7 +138,6 @@ p {
 
 footer {
   text-align: center;
-  font-size: 1.5em;
   padding: 1em;
   background-color: yellow;
   padding-top: 20px;
@@ -261,7 +260,7 @@ footer {
   margin-bottom: 20px;
 }
 
-.total > p {
+.total>p {
   font-size: 2.5em;
   text-align: center;
 }

@@ -3,7 +3,7 @@ const Footer = () => {
   const { pathname } = useLocation();
   return (
     <footer className={pathname === "/shop" && "shop-route-footer"}>
-      &copy; Peter Dubravec 2022
+      <a href="https://github.com/peter-dubravec/Shopping-Cart">GitHub Repo</a>
     </footer>
   );
 };
